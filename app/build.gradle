@@ -17,6 +17,13 @@ android {
         versionName "5.2"
         resConfigs "en", "ca", "cs", "da", "de", "el", "es", "fr", "hu", "in", "it", "ja", "nb", "nl", "nn", "pl", "pt-rBR", "pt-rPT", "ru", "sk", "sv", "tl", "tr", "uk", "vi", "zh-rCN"
         vectorDrawables.generatedDensities = []
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments useTestStorageService: 'true'
+    }
+
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
 
     kapt {
@@ -44,6 +51,16 @@ android {
     packagingOptions.resources {
         excludes += ["DebugProbesKt.bin", "META-INF/**.version", "kotlin/**.kotlin_builtins", "kotlin-tooling-metadata.json"]
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+}
+
+apply plugin: 'mint-tooling'
+
+mintTooling {
+    packageName "com.omgodse.notally.debug"
+    targetDir "${project.buildDir}/mint-reports/mint/temp"
 }
 
 dependencies {
@@ -66,4 +83,9 @@ dependencies {
 
     // Images
     implementation "com.github.bumptech.glide:glide:4.15.0"
+
+    androidTestImplementation "org.mint:android:${mint_version}"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestUtil 'androidx.test:orchestrator:1.4.1'
 }

@@ -1,13 +1,17 @@
 buildscript {
+    ext.mint_version = '0.2.0-SNAPSHOT'
+    ext.mint_plugin_version = mint_version
 
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:7.4.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
+        classpath "org.mint.tooling:mint-gradle-plugin:${mint_plugin_version}"
     }
 }
 
@@ -16,6 +20,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        mavenLocal()
     }
 }
 
